@@ -1,0 +1,26 @@
+{
+  "name": "@mdt/sesami-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "npm run build; node dist/server.js"
+  },
+  "keywords": [],
+  "author": "Jayden Marquardt",
+  "license": "MIT",
+  "description": "Made for Sesami Booking API",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/nock": "^11.1.0",
+    "@types/node": "^22.14.1",
+    "dotenv": "^16.5.0",
+    "nock": "^14.0.4",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3",
+    "axios": "^1.8.4",
+    "express": "^5.1.0"
+  }
+}

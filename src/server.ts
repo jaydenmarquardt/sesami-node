@@ -1,0 +1,64 @@
+import express from "express";
+import Sesami from "./Sesami.node";
+import "dotenv/config";
+
+const app = express();
+const port = process.env.PORT ?? 3000;
+
+app.get("/test", async (req, res) => {
+  try {
+    const api = new Sesami({
+      apiToken: process.env.API_TOKEN,
+      apiClientID: process.env.API_CLIENT_ID,
+      shopID: process.env.SHOP_ID,
+    });
+    if (!process.env.SHOP_ID) {
+      throw new Error("SHOP_ID is not defined");
+    }
+    const sesamiShopID = "67f33bc6453b8f6241307b72";
+
+    // const data = await api.qraphql({
+    //   query: `query {
+    //         shop(id: "${sesamiShopID}") {
+    //         id
+    //         name
+    //         url
+    //         email
+    //         phone
+    //         address {
+    //             address1
+    //             address2
+    //             city
+    //             province
+    //             country
+    //             zip
+    //         }
+    //         }
+    //     }`,
+    // });
+
+    const shops = api.shops.get({});
+    const ishop = api.shops.getById(sesamiShopID);
+    const shop_data = await ishop.get();
+    const shop_config = await ishop.config();
+    const shop_services = await ishop.services.get({});
+    const shop_team = await ishop.teamMembers.get({});
+    const iservice = ishop.services.getById("67f33c31453b8f624137c77a");
+    const service_data = await iservice.get();
+
+    res.json({
+      shops,
+      shop_data,
+      shop_config,
+      shop_services,
+      service_data,
+      shop_team,
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.listen(port, function () {
+  console.log(`🚀 Server listening on http://localhost:${port}`);
+});
