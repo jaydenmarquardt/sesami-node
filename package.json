@@ -10,6 +10,7 @@
   "keywords": [],
   "author": "Jayden Marquardt",
   "license": "MIT",
+  "types": "dist/types/index.d.ts",
   "description": "Made for Sesami Booking API",
   "dependencies": {},
   "devDependencies": {
