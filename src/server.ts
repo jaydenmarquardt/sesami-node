@@ -15,30 +15,9 @@ app.get("/test", async (req, res) => {
     if (!process.env.SHOP_ID) {
       throw new Error("SHOP_ID is not defined");
     }
-    const sesamiShopID = "67f33bc6453b8f6241307b72";
-
-    // const data = await api.qraphql({
-    //   query: `query {
-    //         shop(id: "${sesamiShopID}") {
-    //         id
-    //         name
-    //         url
-    //         email
-    //         phone
-    //         address {
-    //             address1
-    //             address2
-    //             city
-    //             province
-    //             country
-    //             zip
-    //         }
-    //         }
-    //     }`,
-    // });
 
     const shops = api.shops.get({});
-    const ishop = api.shops.getById(sesamiShopID);
+    const ishop = api.shops.getById(process.env.SHOP_ID);
     const shop_data = await ishop.get();
     const shop_config = await ishop.config();
     const shop_services = await ishop.services.get({});

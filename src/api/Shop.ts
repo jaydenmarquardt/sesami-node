@@ -14,13 +14,26 @@ import { ISesamiResources } from "./Resources";
 import { ISesamiServices } from "./Services";
 import { ISesamiTeamMembers } from "./TeamMembers";
 
+/**
+ * Class representing the shops API for Sesami.
+ */
 export class ISesamiShops {
   private _api: SesamiNode;
 
+  /**
+   * Creates an instance of ISesamiShops.
+   * @param api - The SesamiNode API instance.
+   */
   constructor(api: SesamiNode) {
     this._api = api;
   }
 
+  /**
+   * Retrieves a list of shops.
+   * @param limit - The maximum number of shops to retrieve.
+   * @param searchTerm - A search term to filter shops.
+   * @returns A promise resolving to a list of shops.
+   */
   async get({
     limit = 10,
     searchTerm,
@@ -38,11 +51,19 @@ export class ISesamiShops {
     });
   }
 
+  /**
+   * Retrieves a specific shop by ID.
+   * @param id - The ID of the shop.
+   * @returns An instance of ISesamiShop.
+   */
   getById(id: string): ISesamiShop {
     return new ISesamiShop(this._api, id);
   }
 }
 
+/**
+ * Class representing a single shop in Sesami.
+ */
 export class ISesamiShop {
   private _api: SesamiNode;
   _id: string;
@@ -53,6 +74,11 @@ export class ISesamiShop {
   reservations: ISesamiReservations;
   resources: ISesamiResources;
 
+  /**
+   * Creates an instance of ISesamiShop.
+   * @param api - The SesamiNode API instance.
+   * @param shopID - The ID of the shop.
+   */
   constructor(api: SesamiNode, shopID: string) {
     this._api = api;
     this._id = shopID;
@@ -64,6 +90,10 @@ export class ISesamiShop {
     this.reservations = new ISesamiReservations(this._api, this);
   }
 
+  /**
+   * Retrieves the details of the shop.
+   * @returns A promise resolving to the shop details.
+   */
   async get(): Promise<SesameShopResponse> {
     return await this._api.request({
       method: "GET",
@@ -71,6 +101,10 @@ export class ISesamiShop {
     });
   }
 
+  /**
+   * Retrieves the configuration of the shop.
+   * @returns A promise resolving to the shop configuration.
+   */
   async config(): Promise<ReadShopConfigResponse> {
     return await this._api.request({
       method: "GET",
@@ -78,14 +112,27 @@ export class ISesamiShop {
     });
   }
 
+  /**
+   * Retrieves the settings of the shop.
+   * @returns A promise resolving to the shop settings.
+   */
   async settings(): Promise<ReadSettingResponse> {
     return (await this.get())?.settings;
   }
 
+  /**
+   * Retrieves the plan details of the shop.
+   * @returns A promise resolving to the shop plan details.
+   */
   async plan(): Promise<ReadShopPlanResponse> {
     return (await this.get())?.plan;
   }
 
+  /**
+   * Updates the shop with new properties.
+   * @param properties - The properties to update.
+   * @returns A promise resolving to the updated shop details.
+   */
   async update(properties: UpdateShopRequest): Promise<SesameShopResponse> {
     return await this._api.request({
       method: "PATCH",
