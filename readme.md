@@ -37,7 +37,7 @@ For more information about the Sesami API, refer to these official resources:
 ## Quick Start
 
 ```typescript
-import Sesami from "@mdt/sesami-node";
+import Sesami from "@jmdt/sesami-node";
 
 // Initialize the client
 const sesami = new Sesami({
