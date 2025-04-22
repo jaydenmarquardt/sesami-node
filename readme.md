@@ -5,7 +5,7 @@ A Node.js client library for interacting with the Sesami Booking API. This clien
 ## Installation
 
 ```bash
-npm install @mdt/sesami-node
+npm install @jmdt/sesami-node
 ```
 
 ## Features
